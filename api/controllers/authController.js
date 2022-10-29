@@ -1,11 +1,8 @@
-const {
-  getUserService,
-  addUserService,
-} = require("../services/getUserService");
+const { loginService, signupService } = require("../services/getUserService");
 
-exports.getUserFunc = async (req, res) => {
+exports.loginFunction = async (req, res) => {
   try {
-    return await getUserService(req, res);
+    return await loginService(req, res);
   } catch (err) {
     return res.json({
       status: 500,
@@ -15,9 +12,9 @@ exports.getUserFunc = async (req, res) => {
   }
 };
 
-exports.addUserFunc = async (req, res) => {
+exports.signupFunction = async (req, res) => {
   try {
-    return await addUserService(req, res);
+    return await signupService(req, res);
   } catch (err) {
     return res.json({
       status: 500,

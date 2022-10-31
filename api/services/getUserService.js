@@ -90,6 +90,7 @@ const signupService = async (req, res) => {
         });
       })
       .catch((err) => {
+        console.log("93", err);
         res.json({
           status: 500,
           success: false,
@@ -97,6 +98,7 @@ const signupService = async (req, res) => {
         });
       });
   } catch (err) {
+    console.log("101", err);
     res.json({
       status: 500,
       success: false,

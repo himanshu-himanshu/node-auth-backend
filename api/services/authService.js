@@ -1,6 +1,9 @@
 const mongoose = require("mongoose");
+const jwt = require("jsonwebtoken");
+const bcrypt = require("bcryptjs");
+
+require("dotenv").config();
 const User = require("../models/userModel");
-const Bcrypt = require("bcryptjs");
 const registerValidator = require("../validators/registerValidator");
 const loginValidator = require("../validators/loginValidator");
 
@@ -28,7 +31,7 @@ const loginService = async (req, res) => {
           });
         }
 
-        if (!Bcrypt.compareSync(password, user.password)) {
+        if (!bcrypt.compareSync(password, user.password)) {
           return res.status(401).json({
             success: false,
             status: 401,
@@ -36,11 +39,17 @@ const loginService = async (req, res) => {
           });
         }
 
+        const token = jwt.sign(
+          { name: user.username, email: user.email },
+          process.env.TOKEN_KEY
+        );
+
         return res.status(200).json({
           success: true,
           status: 200,
           message: "User exist",
           data: user,
+          token: token,
         });
       });
   } catch (err) {

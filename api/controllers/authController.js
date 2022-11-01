@@ -1,4 +1,6 @@
-const { loginService, signupService } = require("../services/getUserService");
+const { loginService, signupService } = require("../services/authService");
+
+/********--LOGIN FUNCTION--********/
 
 exports.loginFunction = async (req, res) => {
   try {
@@ -11,6 +13,8 @@ exports.loginFunction = async (req, res) => {
     });
   }
 };
+
+/********--SIGNUP FUNCTION--********/
 
 exports.signupFunction = async (req, res) => {
   try {

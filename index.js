@@ -1,34 +1,20 @@
 const express = require("express");
 const app = express();
-const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const authRouter = require("./api/routes/authRouter");
-
-require("dotenv").config();
+const userRouter = require("./api/routes/userRouter");
+require("./api/config/db").connect();
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-/**
- * MongoDB database connection below
- */
-mongoose.connect(process.env.MONGODB_COMPASS_URL, { useNewUrlParser: true });
+/********--ROUTES--********/
 
-var conn = mongoose.connection;
-
-conn.on("connected", function () {
-  console.log("Database is connected successfully");
-});
-conn.on("disconnected", function () {
-  console.log("Database is disconnected successfully");
-});
-conn.on("error", console.error.bind(console, "Connection error:"));
-
-/**
- * Router
- */
-
+// Route for authentication
 app.use("/auth", authRouter);
+
+// Route for user handling
+app.use("/user", userRouter);
 
 app.listen(8000, () => {
   console.log("Server is listening at 8000");

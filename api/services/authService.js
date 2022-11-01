@@ -4,7 +4,8 @@ const Bcrypt = require("bcryptjs");
 const registerValidator = require("../validators/registerValidator");
 const loginValidator = require("../validators/loginValidator");
 
-// User Login
+/********--LOGIN SERVICE--********/
+
 const loginService = async (req, res) => {
   try {
     const { email, password } = req.body;
@@ -31,7 +32,7 @@ const loginService = async (req, res) => {
           return res.status(401).json({
             success: false,
             status: 401,
-            message: "Wrong Password",
+            message: "Wrong Credentials",
           });
         }
 
@@ -51,7 +52,8 @@ const loginService = async (req, res) => {
   }
 };
 
-// User Registration
+/********--SIGNUP SERVICE--********/
+
 const signupService = async (req, res) => {
   try {
     const { username, email, password } = req.body;
@@ -106,6 +108,8 @@ const signupService = async (req, res) => {
     });
   }
 };
+
+/********--EXPORTS--********/
 
 module.exports = {
   loginService,

@@ -3,10 +3,12 @@ const app = express();
 const bodyParser = require("body-parser");
 const authRouter = require("./api/routes/authRouter");
 const userRouter = require("./api/routes/userRouter");
+const cors = require("cors");
 require("./api/config/db").connect();
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+app.use(cors());
 
 /********--ROUTES--********/
 

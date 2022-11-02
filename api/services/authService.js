@@ -44,12 +44,19 @@ const loginService = async (req, res) => {
           process.env.TOKEN_KEY
         );
 
+        const userData = {
+          username: user.username,
+          email: user.email,
+          token: token,
+          createdAt: user.createdAt,
+          updatedAt: user.updatedAt,
+        };
+
         return res.status(200).json({
           success: true,
           status: 200,
-          message: "User exist",
-          data: user,
-          token: token,
+          message: "User exists",
+          data: userData,
         });
       });
   } catch (err) {
@@ -67,6 +74,7 @@ const signupService = async (req, res) => {
   try {
     const { username, email, password } = req.body;
     const { errors, isValid } = registerValidator(req.body);
+
     if (!isValid) {
       return res.json({
         status: 404,
@@ -74,22 +82,36 @@ const signupService = async (req, res) => {
         message: errors,
       });
     }
-    await User.find({
-      email: email,
-    }).then((u) => {
-      if (u.length > 0) {
-        return res.json({
-          status: 409,
-          success: false,
-          message: "Email already in use",
-        });
-      }
+
+    const usernameExist = await User.find({
+      username: username,
     });
+
+    if (usernameExist.length > 0) {
+      return res.json({
+        status: 404,
+        success: false,
+        message: { username: "⚠ Username already taken" },
+      });
+    }
+
+    const userEmailExist = await User.find({
+      email: email,
+    });
+
+    if (userEmailExist.length > 0) {
+      return res.json({
+        status: 404,
+        success: false,
+        message: { email: "⚠ Email already taken" },
+      });
+    }
+
     let user = {
       _id: new mongoose.Types.ObjectId(),
       username: username,
       email: email,
-      password: Bcrypt.hashSync(password, 10),
+      password: bcrypt.hashSync(password, 10),
     };
     new User(user)
       .save()

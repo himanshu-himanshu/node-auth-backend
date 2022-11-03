@@ -24,18 +24,18 @@ const loginService = async (req, res) => {
       .exec()
       .then((user) => {
         if (!user) {
-          return res.status(404).json({
+          return res.json({
             success: false,
             status: 404,
-            message: "User not registered",
+            message: { email: "⚠ Email Not Registered" },
           });
         }
 
         if (!bcrypt.compareSync(password, user.password)) {
-          return res.status(401).json({
+          return res.json({
             success: false,
-            status: 401,
-            message: "Wrong Credentials",
+            status: 404,
+            message: { password: "⚠ Wrong Password" },
           });
         }
 

@@ -3,8 +3,11 @@ require("dotenv").config();
 
 const { MONGODB_LOCAL_URL } = process.env;
 
-/********--DATABASE CONNECTION--********/
-
+/**
+ * -----------------------------------------------
+ * Database connection logic
+ * -----------------------------------------------
+ */
 exports.connect = () => {
   mongoose
     .connect(MONGODB_LOCAL_URL, {

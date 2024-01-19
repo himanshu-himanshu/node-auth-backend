@@ -7,8 +7,11 @@ const User = require("../models/userModel");
 const registerValidator = require("../validators/registerValidator");
 const loginValidator = require("../validators/loginValidator");
 
-/********--LOGIN SERVICE--********/
-
+/**
+ * -----------------------------------------------
+ * Login Service Function below
+ * -----------------------------------------------
+ */
 const loginService = async (req, res) => {
   try {
     const { email, password } = req.body;
@@ -68,8 +71,11 @@ const loginService = async (req, res) => {
   }
 };
 
-/********--SIGNUP SERVICE--********/
-
+/**
+ * -----------------------------------------------
+ * Signup Service Function below
+ * -----------------------------------------------
+ */
 const signupService = async (req, res) => {
   try {
     const { username, email, password } = req.body;
@@ -118,7 +124,7 @@ const signupService = async (req, res) => {
       .then((result) => {
         res.status(200).json({
           success: true,
-          message: "Registration succesfull",
+          message: "Registration Successful",
           data: result,
         });
       })
@@ -140,7 +146,7 @@ const signupService = async (req, res) => {
   }
 };
 
-/********--EXPORTS--********/
+/********-- EXPORTS --********/
 
 module.exports = {
   loginService,

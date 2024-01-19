@@ -1,7 +1,10 @@
 const { loginService, signupService } = require("../services/authService");
 
-/********--LOGIN FUNCTION--********/
-
+/**
+ * -----------------------------------------------
+ * Login Controller Function below
+ * -----------------------------------------------
+ */
 exports.loginFunction = async (req, res) => {
   try {
     return await loginService(req, res);
@@ -14,8 +17,11 @@ exports.loginFunction = async (req, res) => {
   }
 };
 
-/********--SIGNUP FUNCTION--********/
-
+/**
+ * -----------------------------------------------
+ * Signup Controller Function below
+ * -----------------------------------------------
+ */
 exports.signupFunction = async (req, res) => {
   try {
     return await signupService(req, res);
